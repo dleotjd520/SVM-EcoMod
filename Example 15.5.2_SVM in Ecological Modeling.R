@@ -170,6 +170,7 @@ for(k in 1:5){
   ### Permutation importance
   set.seed(123)
   t.var.imp <- model_parts(explainer.svm, N=NULL)
+  t.var.imp <- t.var.imp[t.var.imp$permutation == 0, ] # extract average results
   
   ### Partial dependence plot
   t.pdp.svm  <- model_profile(explainer.svm, variable =names(t.test)[-1], type = "partial") # 12s
@@ -193,7 +194,7 @@ for(k in 1:5){
   save(SVM.metrics, SVM.pred, SVM.VarImp, SVM.PDP, file="3.SDM_explain.RData")
 })
 
-
+plot(t.var.imp)
 
 ### Analysis (Metrics & VarImp) & Visualization (PDP)
 load("3.SDM_explain.RData")
